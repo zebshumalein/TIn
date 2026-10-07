@@ -1,0 +1,12 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.docker.example
+backend/.env
+backend/.sessions
+backend/.venv
+backend/__pycache__
+.venv
+__pycache__
+*.pyc

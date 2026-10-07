@@ -1,0 +1,52 @@
+services:
+  ollama:
+    image: ollama/ollama:${OLLAMA_VERSION:-latest}
+    restart: unless-stopped
+    environment:
+      OLLAMA_LOAD_TIMEOUT: 15m
+    volumes:
+      - ollama-data:/root/.ollama
+    expose:
+      - "11434"
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 20s
+      timeout: 10s
+      start_period: 30s
+      retries: 5
+
+  ollama-model:
+    image: ollama/ollama:${OLLAMA_VERSION:-latest}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["ollama pull \"$${QWEN_MODEL}\""]
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      QWEN_MODEL: ${QWEN_MODEL:-qwen2.5:7b}
+    restart: "no"
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      ollama-model:
+        condition: service_completed_successfully
+    environment:
+      APP_ENV: production
+      APP_ACCESS_TOKEN: ${APP_ACCESS_TOKEN:?Set APP_ACCESS_TOKEN in the root .env file}
+      QWEN_MODEL: ${QWEN_MODEL:-qwen2.5:7b}
+      OLLAMA_BASE_URL: http://ollama:11434
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+    ports:
+      - "${PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:8000/api/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  ollama-data:
