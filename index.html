@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verifi — Every answer, proven.</title>
+<meta name="description" content="Upload your data, ask a question in plain English, and get an answer with the code behind it and proof it is correct.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 29.5 16 16 29.5 2.5 16 16 2.5Z' fill='none' stroke='%23141414' stroke-width='1.7'/%3E%3Cpath d='M16 9.5 22.5 16 16 22.5 9.5 16 16 9.5Z' fill='%23141414'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="hero__inner">
+    <header class="nav">
+      <a class="brand" href="#top">
+        <svg class="rise" style="--i:0" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 2.5 29.5 16 16 29.5 2.5 16 16 2.5Z" stroke="#141414" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M16 9.5 22.5 16 16 22.5 9.5 16 16 9.5Z" fill="#141414"/>
+        </svg>
+        <span class="rise" style="--i:1">Verifi</span>
+      </a>
+
+      <nav class="nav__nav" id="site-menu" aria-label="Main">
+        <ul class="nav__links">
+          <li class="rise" style="--i:2"><a href="#how-it-works">How it works</a></li>
+          <li class="rise" style="--i:3"><a href="#try">Try it</a></li>
+          <li class="rise" style="--i:4"><a href="#faq">FAQ</a></li>
+          <li class="rise" style="--i:5"><a href="#team">Team</a></li>
+        </ul>
+        <a class="btn-dark menu__cta" href="#try">Try Demo</a>
+      </nav>
+
+      <div class="nav__cta rise" style="--i:6">
+        <a class="btn-dark" href="#try">Try Demo</a>
+      </div>
+
+      <button class="nav__toggle rise" style="--i:6" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
+        <span class="nav__toggle-box" aria-hidden="true"><span class="bar bar--top"></span><span class="bar bar--bot"></span></span>
+      </button>
+    </header>
+
+    <div class="stage">
+      <div class="badge rise" style="--i:8"><span class="badge__tag">New</span><span>Answers you can verify</span></div>
+
+      <h1 class="headline rise" style="--i:10">Every answer,<br class="brk" /> proven.</h1>
+
+      <p class="sub rise" style="--i:12">Upload your data and ask a question in plain English.<br class="brk" />
+        Get the answer, the code behind it, and proof it is correct.</p>
+
+      <form class="prompt rise" id="try" style="--i:14" novalidate autocomplete="off" aria-label="Ask a question about your data">
+        <div class="upload rise" style="--i:15">
+          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-describedby="upload-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4.75 4.75 0 0 1-.5 9.5"/><path d="M12 21v-9M8.8 14.8 12 11.6l3.2 3.2"/>
+            </svg>
+            <span class="dropzone__text" id="dropzone-text">Drop up to 5 CSV or Excel files here, or click to browse</span>
+            <span class="dropzone__hint" id="upload-hint">Supports .csv, .xlsx, .xls; 10 MB per file, 20 MB combined</span>
+          </div>
+          <button type="button" class="link-btn" id="sample-btn">No file? Use sample data</button>
+
+          <label class="access-token" for="access-token">App access token <span>(if required by the host)</span>
+            <input id="access-token" type="password" autocomplete="current-password" placeholder="Provided by the app owner">
+          </label>
+
+          <div class="join-config" id="join-config" hidden>
+            <p class="join-config__title">Choose how to join your files</p>
+            <p class="join-config__hint">Each additional file will join to the first file using the columns you select.</p>
+            <label class="join-config__type" for="join-type">Keep which rows?
+              <select id="join-type">
+                <option value="left">All rows from the first file (recommended)</option>
+                <option value="inner">Only rows with a match in every file</option>
+                <option value="outer">All rows, including unmatched rows</option>
+              </select>
+            </label>
+            <div class="join-list" id="join-list"></div>
+            <button type="button" class="btn-dark join-config__submit" id="join-btn" disabled>Join files</button>
+          </div>
+
+          <div class="filechip" id="filechip" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 17h7"/>
+            </svg>
+            <div class="filechip__info">
+              <span class="filechip__name" id="chip-name"></span>
+              <span class="filechip__meta" id="chip-meta"></span>
+              <span class="filechip__sources" id="chip-sources" hidden></span>
+            </div>
+            <button type="button" class="filechip__remove" id="remove-btn" aria-label="Remove file">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+              Remove
+            </button>
+          </div>
+          <details class="preview" id="preview" hidden>
+            <summary>Preview</summary>
+            <div class="table-wrap table-wrap--small" tabindex="0" role="region" aria-label="Preview of the first 5 rows"><table id="preview-table"></table></div>
+          </details>
+          <p class="upload__error" id="upload-error" role="alert" hidden></p>
+          <input type="file" id="file-input" accept=".csv,.xlsx,.xls" multiple hidden>
+        </div>
+
+        <label class="sr-only" for="prompt-input">Ask a question about your data</label>
+        <textarea id="prompt-input" class="prompt__input" rows="3" placeholder="Ask anything about your data, e.g. What was total revenue in March?"></textarea>
+
+        <div class="prompt__bar">
+          <button class="icon-btn rise" style="--i:16" id="add-btn" type="button" aria-label="Add attachment">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <div class="prompt__right">
+            <button class="icon-btn icon-btn--bare icon-btn--mic rise" style="--i:17" type="button" aria-label="Use microphone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+            </button>
+            <button class="icon-btn icon-btn--send rise" style="--i:18" id="send-btn" type="submit" aria-label="Send message" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <p class="inline-answer" id="inline-answer" role="status" aria-live="polite" hidden></p>
+
+      <div class="examples rise" style="--i:19" id="examples" role="group" aria-label="Example questions">
+        <button type="button" class="chip">How many rows are in my data?</button>
+        <button type="button" class="chip">What is the total revenue?</button>
+        <button type="button" class="chip">Which region has the highest revenue?</button>
+      </div>
+
+      <label class="switch rise" style="--i:20">
+        <input type="checkbox" id="double-check" role="switch" checked>
+        <span class="switch__track" aria-hidden="true"></span>
+        <span class="switch__label">Double-check every answer (run twice and compare)</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESULT ============================ -->
+<section class="section result" id="result" hidden tabindex="-1" aria-labelledby="result-title">
+  <div class="shell">
+    <h2 class="sr-only" id="result-title">Your answer</h2>
+    <p class="sr-only" id="sr-status" role="status" aria-live="polite"></p>
+
+    <!-- A) loading -->
+    <div class="card state" id="state-loading" hidden>
+      <p class="state__title">Working on your question</p>
+      <ol class="progress">
+        <li class="is-active"><span class="progress__icon" aria-hidden="true"></span><span>Analyzing your data and checking the result...</span></li>
+      </ol>
+    </div>
+
+    <!-- B) verified -->
+    <div class="card state" id="state-verified" hidden>
+      <p class="answer__text" id="answer-text"></p>
+      <p class="vbadge" id="vbadge"><b id="vbadge-title">Verified ✓</b><span id="vbadge-note">Two independent runs matched</span></p>
+
+      <div class="tabs" role="tablist" aria-label="Answer details">
+        <button class="tab" role="tab" id="tab-answer" aria-controls="panel-answer" aria-selected="true" type="button">Answer</button>
+        <button class="tab" role="tab" id="tab-code" aria-controls="panel-code" aria-selected="false" tabindex="-1" type="button">Code used</button>
+        <button class="tab" role="tab" id="tab-evidence" aria-controls="panel-evidence" aria-selected="false" tabindex="-1" type="button">Evidence</button>
+        <button class="tab" role="tab" id="tab-check" aria-controls="panel-check" aria-selected="false" tabindex="-1" type="button">How we checked</button>
+      </div>
+
+      <div class="panel" role="tabpanel" id="panel-answer" aria-labelledby="tab-answer" tabindex="0">
+        <div id="answer-body"></div>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-code" aria-labelledby="tab-code" tabindex="0" hidden>
+        <div class="code-head">
+          <span>Python (pandas) — this is exactly what ran on your data</span>
+          <button type="button" class="copy-btn" id="copy-btn">Copy</button>
+        </div>
+        <pre class="code"><code id="code-block"></code></pre>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-evidence" aria-labelledby="tab-evidence" tabindex="0" hidden>
+        <div id="evidence-body"></div>
+        <p class="note" id="evidence-note"></p>
+      </div>
+      <div class="panel" role="tabpanel" id="panel-check" aria-labelledby="tab-check" tabindex="0" hidden>
+        <p class="check__text" id="check-text"></p>
+        <div class="runs" id="runs"></div>
+      </div>
+
+      <button type="button" class="btn-dark" id="again-btn">Ask another question</button>
+    </div>
+
+    <!-- C) cannot prove -->
+    <div class="card state state--amber" id="state-cannot" hidden>
+      <p class="state__title">I can't prove this</p>
+      <p class="state__text" id="cannot-reason"></p>
+      <p class="state__sub">Questions your data can answer:</p>
+      <div class="suggest" id="cannot-suggest"></div>
+    </div>
+
+    <!-- D) error -->
+    <div class="card state state--red" id="state-error" hidden role="alert">
+      <p class="state__title">Something went wrong</p>
+      <p class="state__text" id="error-text"></p>
+      <button type="button" class="btn-dark" id="retry-btn">Try again</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section class="section" id="how-it-works" aria-labelledby="how-title">
+  <div class="shell">
+    <div class="section__head reveal">
+      <h2 class="section__title" id="how-title">How it works</h2>
+      <p class="section__sub">Four simple steps from your data to an answer you can trust.</p>
+    </div>
+
+    <ol class="steps">
+      <li class="card step reveal" style="--d:0">
+        <span class="step__num">1</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4.75 4.75 0 0 1-.5 9.5"/><path d="M12 21v-9M8.8 14.8 12 11.6l3.2 3.2"/></svg>
+        <h3>Upload your data</h3>
+        <p>Drop in a spreadsheet or CSV. Nothing to set up, and no coding needed.</p>
+      </li>
+      <li class="card step reveal" style="--d:1">
+        <span class="step__num">2</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h7M8.5 14h4"/></svg>
+        <h3>Ask in plain English</h3>
+        <p>Type your question the way you would ask a colleague. For example: 'Which region earned the most?'</p>
+      </li>
+      <li class="card step reveal" style="--d:2">
+        <span class="step__num">3</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.2 5.5l-2.4 13"/></svg>
+        <h3>We calculate, not guess</h3>
+        <p>Instead of guessing a number, the AI writes a small program and runs it on your real data. Only the program does the maths.</p>
+      </li>
+      <li class="card step reveal" style="--d:3">
+        <span class="step__num">4</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.4 3.1 8 7.5 9.5 4.4-1.5 7.5-5.1 7.5-9.5V6z"/><path d="m8.8 12.2 2.3 2.3 4.2-4.6"/></svg>
+        <h3>We prove it</h3>
+        <p>We run the calculation a second time on its own. If both runs match, you see a green Verified badge, along with the code and the exact rows used.</p>
+      </li>
+    </ol>
+
+    <div class="section__head section__head--sub reveal">
+      <h3 class="section__title section__title--sm">See it in action</h3>
+    </div>
+    <div class="compare">
+      <article class="card compare__card reveal" style="--d:0">
+        <p class="compare__tag">A normal AI chatbot</p>
+        <p class="compare__q">How much did we earn in March?</p>
+        <p class="compare__a compare__a--grey">About 4.2 lakh</p>
+        <p class="note">No proof. You have to trust it.</p>
+      </article>
+      <article class="card compare__card compare__card--good reveal" style="--d:1">
+        <p class="compare__tag">This app</p>
+        <p class="compare__q">How much did we earn in March?</p>
+        <p class="compare__a">3,62,500</p>
+        <p class="vbadge"><b>Verified ✓</b><span>Two independent runs matched</span></p>
+        <p class="note">Shows the code and the 312 rows used.</p>
+      </article>
+    </div>
+
+    <div class="section__head section__head--sub reveal">
+      <h3 class="section__title section__title--sm">Why you can trust it</h3>
+    </div>
+    <ul class="trust">
+      <li class="trust__item reveal" style="--d:0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+        <h4>The code is always visible</h4><p>Nothing is hidden. Read exactly what ran on your data.</p>
+      </li>
+      <li class="trust__item reveal" style="--d:1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 12.5 4 4 6-8"/><path d="m10.5 16.5 1 1 8-9.5"/></svg>
+        <h4>Checked twice</h4><p>Two independent runs must match before you see a green badge.</p>
+      </li>
+      <li class="trust__item reveal" style="--d:2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.2c-.8.4-1.2 1-1.2 1.8M12 17h.01"/></svg>
+        <h4>Honest when unsure</h4><p>It says “I can't prove this” instead of inventing an answer.</p>
+      </li>
+    </ul>
+
+    <div class="section__head section__head--sub reveal" id="faq">
+      <h3 class="section__title section__title--sm">Frequently asked questions</h3>
+    </div>
+    <div class="faq reveal">
+      <details><summary>Is my data stored?</summary><p>Your file is used only to answer your questions during this session.</p></details>
+      <details><summary>What file types work?</summary><p>Upload up to 5 CSV or Excel files (.xlsx, .xls), up to 10 MB each and 20 MB combined.</p></details>
+      <details><summary>What if the AI is wrong?</summary><p>You can read the code and see the exact rows, and the second run must match or you get a warning instead of an answer.</p></details>
+      <details><summary>Can I ask about things not in my data?</summary><p>No. If the data cannot answer it, the app says so.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="team">
+  <div class="shell footer__inner">
+    <div class="footer__brand">
+      <a class="brand brand--footer" href="#top" aria-label="Verifi home">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2.5 29.5 16 16 29.5 2.5 16 16 2.5Z" stroke="#141414" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9.5 22.5 16 16 22.5 9.5 16 16 9.5Z" fill="#141414"/></svg>
+        <span>Verifi</span>
+      </a>
+      <p>Proof-Carrying Data Analyst</p>
+      <p class="footer__built">Built by Team Verifi at Hacknex 2026</p>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer__links">
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#try">Try it</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
